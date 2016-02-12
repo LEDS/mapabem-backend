@@ -3,3 +3,4 @@ Webservice do Mapa do Bem.
 
 ##Serviços Utilizados
 Django
+Travis CI
