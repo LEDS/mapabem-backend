@@ -4,11 +4,13 @@ from django.utils import timezone
 # Create your models here.
 class Comunidade(models.Model):
     nomeComunidade = models.CharField(max_length=50)
+
     def __str__(self):
         return self.nomeComunidade
 
 class Tag(models.Model):
     nomeTag = models.CharField(max_length=20)
+
     def __str__(self):
         return self.nomeTag
 
@@ -20,24 +22,22 @@ class Elemento(models.Model):
     descricao = models.TextField()
     listaTags = models.ManyToManyField(Tag)
 
-    class Meta:
-        abstract = True
-
     def __str__(self):
         return self.nome
 
 class Localizacao(models.Model):
-    pontoElemento = models.ForeignKey(Elemento, on_delete=models.CASCADE)
+    localizacaoElemento = models.ForeignKey(Elemento, on_delete=models.CASCADE)
 
     latitude = models.FloatField()
     longitude = models.FloatField()
 
     def __str__(self):
-        return str(self.pontoElemento)
+        return str(self.localizacaoElemento)
 
 class Usuario(models.Model):
     nome = models.CharField(max_length=80)
     email = models.EmailField(max_length=150)
+
     def __str__(self):
         return self.nome
 
@@ -50,15 +50,11 @@ class Comentario(models.Model):
     def __str__(self):
         return self.nomeUsuario
 
-
-class PontoTuristico(Elemento):
+class PontoTuristico(Elemento, models.Model):
     pass
 
 class Estabelecimento(Elemento):
     nomeProprietario = models.CharField(max_length=80)
-
-    class Meta:
-        abstract = True
 
 class Datas(models.Model):
     SEGUNDA_FEIRA = 'SEG'
@@ -86,17 +82,16 @@ class Datas(models.Model):
     def __str__(self):
         return self.dia
 
-class EstabelecimentoFixo(Estabelecimento):
+class EstabelecimentoFixo(Estabelecimento, models.Model):
     listaDatas = models.ManyToManyField(Datas)
 
-class EstabelecimentoMovel(Estabelecimento):
+class EstabelecimentoMovel(Estabelecimento, models.Model):
     pass
 
 
 class Agenda(models.Model):
     agendaMovel = models.ForeignKey(EstabelecimentoMovel)
     listaDatas = models.ManyToManyField(Datas)
-
 
 
 class Evento(Elemento, models.Model):
