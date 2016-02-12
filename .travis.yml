@@ -20,4 +20,4 @@ after_script:
  - ./sonar-runner-2.4/bin/sonar-runner
  
 notifications:
-  slack: leds:6Ks2e3Uh5lVamMPLC3GpOK2p
+  slack: leds:yDK4DPqIeIJJjOm7UjJTiVXh
