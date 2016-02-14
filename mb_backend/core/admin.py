@@ -5,6 +5,8 @@ from .models import Localizacao
 from .models import PontoTuristico
 from .models import EstabelecimentoFixo
 from .models import Datas
+from .models import Artista
+from .models import Obra
 
 
 # Register your models here.
@@ -14,3 +16,5 @@ admin.site.register(Localizacao)
 admin.site.register(PontoTuristico)
 admin.site.register(EstabelecimentoFixo)
 admin.site.register(Datas)
+admin.site.register(Artista)
+admin.site.register(Obra)
