@@ -34,17 +34,10 @@ class Localizacao(models.Model):
     def __str__(self):
         return str(self.localizacaoElemento)
 
-class Usuario(models.Model):
-    nome = models.CharField(max_length=80)
-    email = models.EmailField(max_length=150)
-
-    def __str__(self):
-        return self.nome
-
 
 class Comentario(models.Model):
     elementoComentario = models.ForeignKey(Elemento)
-    nomeUsuario = models.ForeignKey(Usuario)
+    nomeUsuario = models.ForeignKey('auth.User')
     textoComentario = models.CharField(max_length=300)
 
     def __str__(self):
