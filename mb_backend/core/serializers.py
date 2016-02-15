@@ -4,17 +4,17 @@ from .models import Comunidade, Elemento, Tag, EstabelecimentoFixo, Evento, Obra
 class ComunidadeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comunidade
-        fields = ('id', 'nomeComunidade')
+        fields = ('nomeComunidade',)
 
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
-        fields = ('id', 'nomeTag')
+        fields = ('nomeTag',)
 
 class LocalizacaoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Localizacao
-        fields = ('id', 'latitude', 'longitude')
+        fields = ('latitude', 'longitude')
 
 
 class ElementoSerializer(serializers.ModelSerializer):
@@ -23,4 +23,4 @@ class ElementoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Elemento
-        fields = ('id', 'comunidadeElemento', 'nome', 'enderecoOficial', 'enderecoUsual', 'descricao', 'listaTags')
+        fields = ('comunidadeElemento', 'nome', 'enderecoOficial', 'enderecoUsual', 'descricao', 'listaTags')

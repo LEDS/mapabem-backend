@@ -21,6 +21,7 @@ class ElementoInComunidade(generics.ListAPIView):
 
     def get_queryset(self):
         comunidade = self.kwargs['pk']
+
         return Elemento.objects.filter(comunidadeElemento_id=comunidade).order_by('id')
 
 class TagList(generics.ListCreateAPIView):
