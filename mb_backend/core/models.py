@@ -96,5 +96,8 @@ class Evento(Elemento, models.Model):
 class Obra(models.Model):
     titulo = models.CharField(max_length=80)
 
+    def __str__(self):
+        return self.titulo
+
 class Artista(Elemento, models.Model):
     listaObras = models.ManyToManyField(Obra)

@@ -20,8 +20,8 @@ class ElementoInComunidade(generics.ListAPIView):
     serializer_class = ElementoSerializer
 
     def get_queryset(self):
-        Comunidade = self.kwargs['pk']
-        return Elemento.objects.filter(comunidade_id=comunidade).order_by('id')
+        comunidade = self.kwargs['pk']
+        return Elemento.objects.filter(comunidadeElemento_id=comunidade).order_by('id')
 
 class TagList(generics.ListCreateAPIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
@@ -34,7 +34,7 @@ class ElementoInTag(generics.ListAPIView):
 
     def get_queryset(self):
         tag = self.kwargs['pk']
-        return Elemento.objects.filter(tag_id=tag).order_by('id')
+        return Elemento.objects.filter(listaTags__id=tag).order_by('id')
 
 
 class ElementoList(generics.ListCreateAPIView):
