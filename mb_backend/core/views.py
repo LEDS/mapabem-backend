@@ -9,7 +9,14 @@ from .serializers import ComunidadeSerializer, ElementoSerializer, TagSerializer
 from .models import Comunidade, Elemento, Tag
 
 
+
 # Create your views here.
+def elemento_list(request):
+    elementos = Elemento.objects.all()
+    return render(request, 'core/index.html', {'elementos' : elementos})
+
+
+
 class ComunidadeList(generics.ListCreateAPIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = Comunidade.objects.all()
