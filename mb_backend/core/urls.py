@@ -3,7 +3,6 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from core import views
 
 urlpatterns = [
-        url(r'^$', views.elemento_list),
         url(r'^elemento/$',views.ElementoList.as_view()),
         url(r'^elemento/(?P<pk>[0-9]+)/$',views.ElementoDetail.as_view()),
 

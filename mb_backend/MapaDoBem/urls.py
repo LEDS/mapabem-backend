@@ -21,5 +21,6 @@ from django.conf.urls.static import static
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^core/', include('core.urls')),
-    url(r'', include('core.urls'))
+    url(r'^cultura/', include('cultura.urls')),
+    url(r'^negocio/', include('negocio.urls'))
 ]
