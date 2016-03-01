@@ -1,21 +1,21 @@
 from rest_framework import serializers
-from .models import Comunidade, Elemento, Tag
+from .models import Comunidade, Elemento, Categoria
 
 class ComunidadeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comunidade
         fields = ('nomeComunidade',)
 
-class TagSerializer(serializers.ModelSerializer):
+class CategoriaSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Tag
-        fields = ('nomeTag',)
+        model = Categoria
+        fields = ('nomeCategoria',)
 
 
 class ElementoSerializer(serializers.ModelSerializer):
     comunidadeElemento = ComunidadeSerializer()
-    listaTags =TagSerializer(many = True)
+    listaCategorias =CategoriaSerializer(many = True)
 
     class Meta:
         model = Elemento
-        fields = ('comunidadeElemento', 'nome', 'enderecoOficial', 'enderecoUsual', 'latitude', 'longitude', 'descricao', 'listaTags')
+        fields = ('uuid','comunidadeElemento', 'nome', 'enderecoOficial', 'enderecoUsual', 'latitude', 'longitude', 'descricao', 'listaCategorias', 'imagem')

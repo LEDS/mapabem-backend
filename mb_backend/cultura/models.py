@@ -9,4 +9,4 @@ class Obra(Elemento, models.Model):
     pass
 
 class Artista(Elemento, models.Model):
-    listaObras = models.ManyToManyField(Obra)
+    listaObras = models.ManyToManyField(Obra, blank = True)

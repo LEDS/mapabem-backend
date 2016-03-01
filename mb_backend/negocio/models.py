@@ -4,7 +4,7 @@ from core.models import Elemento
 
 # Create your models here.
 class Estabelecimento(Elemento):
-    nomeProprietario = models.CharField(max_length=80)
+    pass
 
 class Datas(models.Model):
     SEGUNDA_FEIRA = 'SEG'
@@ -33,7 +33,7 @@ class Datas(models.Model):
         return self.dia
 
 class EstabelecimentoFixo(Estabelecimento, models.Model):
-    listaDatas = models.ManyToManyField(Datas)
+    listaDatas = models.ManyToManyField(Datas, blank = True)
 
 class EstabelecimentoMovel(Estabelecimento, models.Model):
     pass

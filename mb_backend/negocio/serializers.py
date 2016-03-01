@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import EstabelecimentoFixo, Evento, Datas
-from core.serializers import ComunidadeSerializer, TagSerializer
+from core.serializers import ComunidadeSerializer, CategoriaSerializer
 
 class DatasSerializer(serializers.ModelSerializer):
     class Meta:
@@ -9,18 +9,18 @@ class DatasSerializer(serializers.ModelSerializer):
 
 class EstabelecimentoFixoSerializer(serializers.ModelSerializer):
     comunidade = ComunidadeSerializer()
-    listaTags =TagSerializer(many = True)
+    listaCategorias =CategoriaSerializer(many = True)
 
     class Meta:
         model = EstabelecimentoFixo
-        fields = ('comunidade', 'nome', 'nomeProprietario', 'enderecoOficial', 'enderecoUsual', 'latitude', 'longitude', 'descricao', 'listaTags')
+        fields = ('comunidade', 'nome', 'nomeProprietario', 'enderecoOficial', 'enderecoUsual', 'latitude', 'longitude', 'descricao', 'listaCategorias')
 
 
 class EventoSerializer(serializers.ModelSerializer):
     comunidade = ComunidadeSerializer()
-    listaTags = TagSerializer(many = True)
+    listaCategorias = CategoriaSerializer(many = True)
     listaDatas = DatasSerializer
 
     class Meta:
         model = Evento
-        fields = ('comunidade', 'nome', 'dataEvento', 'horaInicio', 'horaFim', 'enderecoOficial', 'enderecoUsual', 'latitude', 'longitude', 'descricao', 'listaTags', 'listaDatas')
+        fields = ('comunidade', 'nome', 'dataEvento', 'horaInicio', 'horaFim', 'enderecoOficial', 'enderecoUsual', 'latitude', 'longitude', 'descricao', 'listaCategorias', 'listaDatas')
