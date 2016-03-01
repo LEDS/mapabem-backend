@@ -4,7 +4,7 @@ from .models import Comunidade, Elemento, Categoria
 class ComunidadeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comunidade
-        fields = ('nomeComunidade',)
+        fields = ('comunidadeuuid','nomeComunidade')
 
 class CategoriaSerializer(serializers.ModelSerializer):
     class Meta:
@@ -18,4 +18,4 @@ class ElementoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Elemento
-        fields = ('uuid','comunidadeElemento', 'nome', 'enderecoOficial', 'enderecoUsual', 'latitude', 'longitude', 'descricao', 'listaCategorias', 'imagem')
+        fields = ('elementouuid','comunidadeElemento', 'nome', 'enderecoOficial', 'enderecoUsual', 'latitude', 'longitude', 'descricao', 'listaCategorias', 'imagem')
