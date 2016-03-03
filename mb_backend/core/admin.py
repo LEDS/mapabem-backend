@@ -1,18 +1,17 @@
 from django.contrib import admin
 from .models import Comunidade
-from .models import Tag
-from .models import Localizacao
-from .models import PontoTuristico
-from .models import EstabelecimentoFixo
-from .models import Datas
-from .models import Artista
-from .models import Obra
+from .models import Categoria
+from negocio.models import EstabelecimentoFixo
+from negocio.models import Datas
+from negocio.models import Evento
+from cultura.models import Artista
+from cultura.models import Obra
+from cultura.models import PontoTuristico
 
 
 # Register your models here.
 admin.site.register(Comunidade)
-admin.site.register(Tag)
-admin.site.register(Localizacao)
+admin.site.register(Categoria)
 admin.site.register(PontoTuristico)
 admin.site.register(EstabelecimentoFixo)
 admin.site.register(Datas)
