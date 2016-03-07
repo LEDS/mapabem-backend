@@ -18,4 +18,4 @@ class ElementoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Elemento
-        fields = ('comunidadeElemento', 'nome', 'enderecoOficial', 'enderecoUsual', 'latitude', 'longitude', 'descricao', 'listaCategorias', 'imagem')
+        fields = ('id', 'comunidadeElemento', 'nome', 'enderecoOficial', 'enderecoUsual', 'latitude', 'longitude', 'descricao', 'listaCategorias', 'imagem')
