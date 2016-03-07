@@ -4,15 +4,14 @@ import uuid
 
 # Create your models here.
 class Comunidade(models.Model):
-    comunidadeuuid = uuid.uuid4()
     nomeComunidade = models.CharField(max_length=50)
 
     def __str__(self):
         return self.nomeComunidade
 
-    #@staticmethod
-    #def getAll():
-    #    return self.objects.all()
+    @staticmethod
+    def getAll():
+        return Comunidade.objects.all()
 
 class Categoria(models.Model):
     nomeCategoria = models.CharField(max_length=50)
@@ -20,9 +19,9 @@ class Categoria(models.Model):
     def __str__(self):
         return self.nomeCategoria
 
-    #@staticmethod
-    #def getAll():
-    #    return self.objects.all()
+    @staticmethod
+    def getAll():
+        return Categoria.objects.all()
 
 class Elemento(models.Model):
     #uuidX = uuid.uuid1().hex
@@ -42,9 +41,9 @@ class Elemento(models.Model):
     def __str__(self):
         return self.nome
 
-    #@staticmethod
-    #def getAll():
-    #    return self.objects.all()
+    @staticmethod
+    def getAll():
+        return Elemento.objects.all()
 
 
 class Comentario(models.Model):
