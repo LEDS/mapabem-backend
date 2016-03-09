@@ -11,14 +11,14 @@ from .models import Comunidade, Elemento, Categoria
 
 # Create your views here.
 
-class ComunidadeList(generics.ListCreateAPIView):
+class Permissao():
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+class ComunidadeList(generics.ListCreateAPIView, Permissao):
     queryset = Comunidade.getAll()
-    #queryset = Comunidade.objects.all()
     serializer_class = ComunidadeSerializer
 
-class ElementoInComunidade(generics.ListAPIView):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+class ElementoInComunidade(generics.ListAPIView, Permissao):
     serializer_class = ElementoSerializer
 
     def get_queryset(self):
@@ -26,14 +26,11 @@ class ElementoInComunidade(generics.ListAPIView):
 
         return Elemento.objects.filter(comunidadeElemento_id=comunidade).order_by('id')
 
-class CategoriaList(generics.ListCreateAPIView):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+class CategoriaList(generics.ListCreateAPIView, Permissao):
     queryset = Categoria.getAll()
-    #queryset = Categoria.objects.all()
     serializer_class = CategoriaSerializer
 
-class ElementoInCategoria(generics.ListAPIView):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+class ElementoInCategoria(generics.ListAPIView, Permissao):
     serializer_class = ElementoSerializer
 
     def get_queryset(self):
@@ -41,12 +38,10 @@ class ElementoInCategoria(generics.ListAPIView):
         return Elemento.objects.filter(listaCategorias__id=categoria).order_by('id')
 
 
-class ElementoList(generics.ListCreateAPIView):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+class ElementoList(generics.ListCreateAPIView, Permissao):
     queryset = Elemento.getAll()
     serializer_class = ElementoSerializer
 
-class ElementoDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+class ElementoDetail(generics.RetrieveUpdateDestroyAPIView, Permissao):
     queryset = Elemento.getAll()
     serializer_class = ElementoSerializer

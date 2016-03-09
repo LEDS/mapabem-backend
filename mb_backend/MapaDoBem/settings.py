@@ -154,11 +154,6 @@ CORS_ALLOW_HEADERS = (
 
 CORS_ALLOW_METHODS = (
         'GET',
-        'POST',
-        'PUT',
-        'PATCH',
-        'DELETE',
-        'OPTIONS'
     )
 
 CORS_URLS_REGEX = r'^/core/.*$'
