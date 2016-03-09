@@ -9,6 +9,7 @@ before_install:
 branches:
   only:
     - master
+    - desenvolvimento
 
 install:
   - pip install -r requirements.txt
