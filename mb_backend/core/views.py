@@ -24,7 +24,7 @@ class ElementoInComunidade(generics.ListAPIView, Permissao):
     def get_queryset(self):
         comunidade = self.kwargs['pk']
 
-        return Elemento.objects.filter(comunidadeElemento_id=comunidade).order_by('id')
+        return Elemento.getElementoInComunidade(comunidade)
 
 class CategoriaList(generics.ListCreateAPIView, Permissao):
     queryset = Categoria.getAll()
@@ -35,7 +35,7 @@ class ElementoInCategoria(generics.ListAPIView, Permissao):
 
     def get_queryset(self):
         categoria = self.kwargs['pk']
-        return Elemento.objects.filter(listaCategorias__id=categoria).order_by('id')
+        return Elemento.getElementoInCategoria(categoria)
 
 
 class ElementoList(generics.ListCreateAPIView, Permissao):
@@ -45,3 +45,13 @@ class ElementoList(generics.ListCreateAPIView, Permissao):
 class ElementoDetail(generics.RetrieveUpdateDestroyAPIView, Permissao):
     queryset = Elemento.getAll()
     serializer_class = ElementoSerializer
+
+
+
+class ElementoInComunidadeInCategoria(generics.ListAPIView, Permissao):
+    serializer_class = ElementoSerializer
+
+    def get_queryset(self):
+        categoria = self.kwargs['categoria_pk']
+        comunidade= self.kwargs['comunidade_pk']
+        return Elemento.getElementoInComunidadeInCategoria(comunidade, categoria)

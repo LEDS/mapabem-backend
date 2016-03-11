@@ -8,6 +8,7 @@ urlpatterns = [
 
         url(r'^elemento/comunidade/(?P<pk>[0-9]+)/$',views.ElementoInComunidade.as_view()),
         url(r'^elemento/categoria/(?P<pk>[0-9]+)/$',views.ElementoInCategoria.as_view()),
+        url(r'^elemento/comunidade/(?P<comunidade_pk>[0-9]+)/categoria/(?P<categoria_pk>[0-9]+)/$',views.ElementoInComunidadeInCategoria.as_view()),
 
         url(r'^comunidades/$',views.ComunidadeList.as_view()),
         url(r'^categorias/$',views.CategoriaList.as_view()),

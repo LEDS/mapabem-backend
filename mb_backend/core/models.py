@@ -24,8 +24,6 @@ class Categoria(models.Model):
         return Categoria.objects.all()
 
 class Elemento(models.Model):
-    #uuidX = uuid.uuid1().hex
-    #elementouuid =brach models.CharField(default = uuidX, max_length=32, unique=True)
     comunidadeElemento = models.ForeignKey(Comunidade)
     nome = models.CharField(max_length=100)
     nomeDoProprietario = models.CharField(max_length=80)
@@ -44,6 +42,22 @@ class Elemento(models.Model):
     @staticmethod
     def getAll():
         return Elemento.objects.all()
+
+    @staticmethod
+    def getCategorias():
+        return Elemento.objects.all()
+
+    @staticmethod
+    def getElementoInComunidade(pkComunidade):
+        return Elemento.objects.filter(comunidadeElemento_id=pkComunidade).order_by('nome')
+
+    @staticmethod
+    def getElementoInCategoria(pkCategoria):
+        return Elemento.objects.filter(listaCategorias__id=pkCategoria).order_by('nome')
+
+    @staticmethod
+    def getElementoInComunidadeInCategoria(pkComunidade, pkCategoria):
+        return Elemento.objects.filter(comunidadeElemento_id = pkComunidade, listaCategorias__id=pkCategoria).order_by('nome')
 
 
 class Comentario(models.Model):

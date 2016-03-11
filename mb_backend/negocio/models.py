@@ -35,6 +35,18 @@ class Datas(models.Model):
 class EstabelecimentoFixo(Estabelecimento, models.Model):
     listaDatas = models.ManyToManyField(Datas, blank = True)
 
+    @staticmethod
+    def getAll():
+        return EstabelecimentoFixo.objects.all()
+
+    @staticmethod
+    def getEstabelecimentoFixoInComunidade(pkComunidade):
+        return EstabelecimentoFixo.objects.filter(comunidadeElemento_id=comunidade).order_by('id')
+
+    @staticmethod
+    def getEstabelecimentoFixoInCategoria(pkCategoria):
+        return EstabelecimentoFixo.objects.filter(listaTags__id=tag).order_by('id')
+
 class EstabelecimentoMovel(Estabelecimento, models.Model):
     pass
 
@@ -49,3 +61,15 @@ class Evento(Elemento, models.Model):
     dataEvento = models.DateField(auto_now=False, auto_now_add=False)
     horaInicio = models.TimeField(auto_now=False, auto_now_add=False)
     horaFim = models.TimeField(auto_now=False, auto_now_add=False)
+
+    @staticmethod
+    def getAll():
+        return Evento.objects.all()
+
+    @staticmethod
+    def getEventoInComunidade(pkComunidade):
+        return Evento.objects.filter(comunidadeElemento_id=comunidade).order_by('id')
+
+    @staticmethod
+    def getPEventoInCategoria(pkCategoria):
+        return Evento.objects.filter(listaTags__id=tag).order_by('id')

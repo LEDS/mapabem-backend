@@ -7,57 +7,51 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from django.contrib.auth import authenticate
 from .serializers import EstabelecimentoFixoSerializer, EventoSerializer
 from .models import EstabelecimentoFixo, Evento
+from core.views import Permissao
 
 # Create your views here.
-class EstabelecimentoFixoList(generics.ListCreateAPIView):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-    queryset = EstabelecimentoFixo.objects.all()
+
+class EstabelecimentoFixoList(generics.ListCreateAPIView, Permissao):
+    queryset = EstabelecimentoFixo.getAll()
     serializer_class = EstabelecimentoFixoSerializer
 
-class EstabelecimentoFixoDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-    queryset = EstabelecimentoFixo.objects.all()
+class EstabelecimentoFixoDetail(generics.RetrieveUpdateDestroyAPIView, Permissao):
+    queryset = EstabelecimentoFixo.getAll()
     serializer_class = EstabelecimentoFixoSerializer
 
-class EstabelecimentoFixoInComunidade(generics.ListAPIView):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+class EstabelecimentoFixoInComunidade(generics.ListAPIView, Permissao):
     serializer_class = EstabelecimentoFixoSerializer
 
     def get_queryset(self):
         comunidade = self.kwargs['pk']
-        return EstabelecimentoFixo.objects.filter(comunidadeElemento_id=comunidade).order_by('id')
+        return EstabelecimentoFixo.getEstabelecimentoFixoInComunidade(comunidade)
 
-class EstabelecimentoFixoInTag(generics.ListAPIView):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+class EstabelecimentoFixoInTag(generics.ListAPIView, Permissao):
     serializer_class = EstabelecimentoFixoSerializer
 
     def get_queryset(self):
-        tag = self.kwargs['pk']
-        return EstabelecimentoFixo.objects.filter(listaTags__id=tag).order_by('id')
+        categoria = self.kwargs['pk']
+        return EstabelecimentoFixo.getEstabelecimentoFixoInCategoria(categoria)
 
 
-class EventoList(generics.ListCreateAPIView):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-    queryset = EstabelecimentoFixo.objects.all()
+class EventoList(generics.ListCreateAPIView, Permissao):
+    queryset = Evento.getAll()
     serializer_class = EventoSerializer
 
-class EventoDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-    queryset = EstabelecimentoFixo.objects.all()
+class EventoDetail(generics.RetrieveUpdateDestroyAPIView, Permissao):
+    queryset = Evento.getAll()
     serializer_class = EventoSerializer
 
-class EventoInComunidade(generics.ListAPIView):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+class EventoInComunidade(generics.ListAPIView, Permissao):
     serializer_class = EventoSerializer
 
     def get_queryset(self):
         comunidade = self.kwargs['pk']
-        return Evento.objects.filter(comunidadeElemento_id=comunidade).order_by('id')
+        return Evento.getEventoInComunidade(comunidade)
 
-class EventoInTag(generics.ListAPIView):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+class EventoInTag(generics.ListAPIView, Permissao):
     serializer_class = EventoSerializer
 
     def get_queryset(self):
-        tag = self.kwargs['pk']
-        return Evento.objects.filter(listaTags__id=tag).order_by('id')
+        categoria = self.kwargs['pk']
+        return Evento.getPEventoInCategoria(categoria)
