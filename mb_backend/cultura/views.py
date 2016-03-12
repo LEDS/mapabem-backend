@@ -7,82 +7,73 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from django.contrib.auth import authenticate
 from .serializers import PontoTuristicoSerializer, ObraSerializer, ArtistaSerializer
 from .models import PontoTuristico, Obra, Artista
+from core.views import Permissao
+
 
 # Create your views here.
-class PontoTuristicoList(generics.ListCreateAPIView):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-    queryset = PontoTuristico.objects.all()
+class PontoTuristicoList(generics.ListCreateAPIView, Permissao):
+    queryset = PontoTuristico.getAll()
     serializer_class = PontoTuristicoSerializer
 
-class PontoTuristicoDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-    queryset = PontoTuristico.objects.all()
+class PontoTuristicoDetail(generics.RetrieveUpdateDestroyAPIView, Permissao):
+    queryset = PontoTuristico.getAll()
     serializer_class = PontoTuristicoSerializer
 
-class PontoTuristicoInComunidade(generics.ListAPIView):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+class PontoTuristicoInComunidade(generics.ListAPIView, Permissao):
+
     serializer_class = PontoTuristicoSerializer
 
     def get_queryset(self):
         comunidade = self.kwargs['pk']
-        return PontoTuristico.objects.filter(comunidadeElemento_id=comunidade).order_by('id')
+        return PontoTuristico.getPontoTuristicoInComunidade(comunidade)
 
-class PontoTuristicoInTag(generics.ListAPIView):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+class PontoTuristicoInTag(generics.ListAPIView, Permissao):
     serializer_class = PontoTuristicoSerializer
 
     def get_queryset(self):
-        tag = self.kwargs['pk']
-        return PontoTuristico.objects.filter(listaTags__id=tag).order_by('id')
+        categoria = self.kwargs['pk']
+        return PontoTuristico.getPontoTuristicoInCategoria(categoria)
 
-class ObraList(generics.ListCreateAPIView):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-    queryset = Obra.objects.all()
+class ObraList(generics.ListCreateAPIView, Permissao):
+    queryset = Obra.getAll()
     serializer_class = ObraSerializer
 
-class ObraDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-    queryset = Obra.objects.all()
+class ObraDetail(generics.RetrieveUpdateDestroyAPIView, Permissao):
+    queryset = Obra.getAll()
     serializer_class = ObraSerializer
 
-class ObraInComunidade(generics.ListAPIView):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+class ObraInComunidade(generics.ListAPIView, Permissao):
     serializer_class = ObraSerializer
 
     def get_queryset(self):
         comunidade = self.kwargs['pk']
-        return Obra.objects.filter(comunidadeElemento_id=comunidade).order_by('id')
+        return Obra.getObraInComunidade(comunidade)
 
-class ObraInTag(generics.ListAPIView):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+class ObraInTag(generics.ListAPIView, Permissao):
     serializer_class = PontoTuristicoSerializer
 
     def get_queryset(self):
-        tag = self.kwargs['pk']
-        return Obra.objects.filter(listaTags__id=tag).order_by('id')
+        categoria = self.kwargs['pk']
+        return Obra.getObraInCategoria(categoria)
 
-class ArtistaList(generics.ListCreateAPIView):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-    queryset = Artista.objects.all()
+class ArtistaList(generics.ListCreateAPIView, Permissao):
+    queryset = Artista.getAll()
     serializer_class = ArtistaSerializer
 
-class ArtistaDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-    queryset = Artista.objects.all()
+class ArtistaDetail(generics.RetrieveUpdateDestroyAPIView, Permissao):
+    queryset = Artista.getAll()
     serializer_class = ArtistaSerializer
 
-class ArtistaInComunidade(generics.ListAPIView):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+class ArtistaInComunidade(generics.ListAPIView, Permissao):
     serializer_class = ArtistaSerializer
 
     def get_queryset(self):
         comunidade = self.kwargs['pk']
-        return Artista.objects.filter(comunidadeElemento_id=comunidade).order_by('id')
+        return Artista.getArtistaInComunidade(comunidade)
 
-class ArtistaInTag(generics.ListAPIView):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+class ArtistaInTag(generics.ListAPIView, Permissao):
     serializer_class = ArtistaSerializer
 
     def get_queryset(self):
-        tag = self.kwargs['pk']
-        return Artista.objects.filter(listaTags__id=tag).order_by('id')
+        categoria = self.kwargs['pk']
+        return Artista.getArtistaInCategoria(categoria)
