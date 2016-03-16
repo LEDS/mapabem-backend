@@ -13,20 +13,47 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+#Modificado devido ao OpenShift
+DJ_PROJECT_DIR = os.path.dirname(__file__)
+BASE_DIR = os.path.dirname(DJ_PROJECT_DIR)
+WSGI_DIR = os.path.dirname(BASE_DIR)
+REPO_DIR = os.path.dirname(WSGI_DIR)
+DATA_DIR = os.environ.get('OPENSHIFT_DATA_DIR', BASE_DIR)
+
+#===========Modificado devido ao OpenShift
+import sys
+sys.path.append(os.path.join(REPO_DIR, 'libs'))
+import secrets
+SECRETS = secrets.getter(os.path.join(DATA_DIR, 'secrets.json'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
+
+#===========Modificado devido ao OpenShift
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'm@k84h%q_2w-zwt7#*x825*r)5b$_m#-0j$!b9v#02q7-lcuzl'
+#SECRET_KEY = 'm@k84h%q_2w-zwt7#*x825*r)5b$_m#-0j$!b9v#02q7-lcuzl'
+SECRET_KEY = SECRETS['secret_key']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+#===========Modificado devido ao OpenShift
+# Quando subir para o OpenShift é necessário descomentar a linha abaixo
+#DEBUG = os.environ.get('DEBUG') == 'True'
 
+#=== Modificado devido ao OpenShift
+#ALLOWED_HOSTS = []
+
+from socket import gethostname
+ALLOWED_HOSTS = [
+    gethostname(), # For internal OpenShift load balancer security purposes.
+    os.environ.get('OPENSHIFT_APP_DNS'), # Dynamically map to the OpenShift gear name.
+    #'example.com', # First DNS alias (set up in the app)
+    #'www.example.com', # Second DNS alias (set up in the app)
+]
 
 # Application definition
 
@@ -90,7 +117,7 @@ WSGI_APPLICATION = 'MapaDoBem.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'mapadobem',
         'USER': 'postgres',
         'PASSWORD': 'admin123',
