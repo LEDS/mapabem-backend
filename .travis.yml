@@ -1,25 +1,29 @@
 language: python
 python:
-  - "3.3"
+  "3.3"
 
 before_install:
-  - wget http://repo1.maven.org/maven2/org/codehaus/sonar/runner/sonar-runner-dist/2.4/sonar-runner-dist-2.4.zip
-  - unzip sonar-runner-dist-2.4.zip
+  wget http://repo1.maven.org/maven2/org/codehaus/sonar/runner/sonar-runner-dist/2.4/sonar-runner-dist-2.4.zip
+  unzip sonar-runner-dist-2.4.zip
 
 branches:
   only:
-    - master
-    - desenvolvimento
-
+    master
+    desenvolvimento
 install:
-  - pip install -r requirements.txt
-
+  pip install -r requirements.txt
 script:
-  - python wsgi/mb_backend/manage.py test
-  - nosetests
-
+  python wsgi/myproject/manage.py test
+  nosetests
+  
 after_script:
- - ./sonar-runner-2.4/bin/sonar-runner
-
-notifications:
-  slack: leds:yDK4DPqIeIJJjOm7UjJTiVXh
+ ./sonar-runner-2.4/bin/sonar-runner
+ 
+ deploy:
+  provider: openshift
+  user: leds.ifes@gmail.com
+  password: leds2013ifesbr 
+  domain: leds
+  app: djangoexample
+  on: master
+  
