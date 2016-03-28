@@ -1,22 +1,12 @@
 from django.db import models
-from core.models import Elemento
+from core.models import Ponto
 
 # Create your models here.
-class PontoTuristico(Elemento, models.Model):
 
-    @staticmethod
-    def get_all():
-        return PontoTuristico.objects.all()
+class Pessoa(Ponto):
+    pass
 
-    @staticmethod
-    def get_pontoturistico_em_comunidade(pkComunidade):
-        return PontoTuristico.objects.filter(comunidadeElemento_id=comunidade).order_by('id')
-
-    @staticmethod
-    def get_pontoturistico_em_categoria(pkCategoria):
-        return PontoTuristico.objects.filter(listaTags__id=tag).order_by('id')
-
-class Obra(Elemento, models.Model):
+class Obra(Ponto, models.Model):
     pass
 
     @staticmethod
@@ -25,13 +15,13 @@ class Obra(Elemento, models.Model):
 
     @staticmethod
     def get_obra_em_comunidade(pkComunidade):
-        return PontoTuristico.objects.filter(comunidadeElemento_id=comunidade).order_by('id')
+        return Obra.objects.filter(comunidadeElemento_id=pkComunidade).order_by('id')
 
     @staticmethod
     def get_obra_em_categoria(pkCategoria):
-        return PontoTuristico.objects.filter(listaTags__id=tag).order_by('id')
+        return Obra.objects.filter(listaTags__id=pkCategoria).order_by('id')
 
-class Artista(Elemento, models.Model):
+class Artista(Pessoa, models.Model):
     listaObras = models.ManyToManyField(Obra, blank = True)
 
     @staticmethod
@@ -40,8 +30,8 @@ class Artista(Elemento, models.Model):
 
     @staticmethod
     def get_artista_em_comunidade(pkComunidade):
-        return PontoTuristico.objects.filter(comunidadeElemento_id=comunidade).order_by('id')
+        return Artista.objects.filter(comunidadeElemento_id=pkComunidade).order_by('id')
 
     @staticmethod
     def get_artista_em_categoria(pkCategoria):
-        return PontoTuristico.objects.filter(listaTags__id=tag).order_by('id')
+        return Artista.objects.filter(listaTags__id=pkCategoria).order_by('id')

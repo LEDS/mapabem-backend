@@ -44,18 +44,18 @@ SECRET_KEY = SECRETS['secret_key']
 DEBUG = True
 #===========Modificado devido ao OpenShift
 # Quando subir para o OpenShift é necessário descomentar a linha abaixo
-#DEBUG = os.environ.get('DEBUG') == 'True'
+DEBUG = os.environ.get('DEBUG') == 'True'
 
 #=== Modificado devido ao OpenShift
-#ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 from socket import gethostname
-ALLOWED_HOSTS = [
-    gethostname(), # For internal OpenShift load balancer security purposes.
-    os.environ.get('OPENSHIFT_APP_DNS'), # Dynamically map to the OpenShift gear name.
-    #'example.com', # First DNS alias (set up in the app)
-    #'www.example.com', # Second DNS alias (set up in the app)
-]
+# ALLOWED_HOSTS = [
+#     gethostname(), # For internal OpenShift load balancer security purposes.
+#     os.environ.get('OPENSHIFT_APP_DNS'), # Dynamically map to the OpenShift gear name.
+#     #'example.com', # First DNS alias (set up in the app)
+#     #'www.example.com', # Second DNS alias (set up in the app)
+# ]
 
 # Application definition
 
@@ -77,7 +77,8 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -107,13 +108,31 @@ WSGI_APPLICATION = 'mb_backend.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
+ON_OPENSHIFT = True
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(DATA_DIR, 'db.sqlite3'),
+if ON_OPENSHIFT: # production settings
+    DATABASES = {
+         'default': { # you can change the backend to any django supported
+            'ENGINE':   'django.db.backends.postgresql_psycopg2',
+            'NAME':     os.environ['OPENSHIFT_APP_NAME'],
+            'USER':     os.environ['OPENSHIFT_POSTGRESQL_DB_USERNAME'],
+            'PASSWORD': os.environ['OPENSHIFT_POSTGRESQL_DB_PASSWORD'],
+            'HOST':     os.environ['OPENSHIFT_POSTGRESQL_DB_HOST'],
+            'PORT':     os.environ['OPENSHIFT_POSTGRESQL_DB_PORT'],
+         }
     }
-}
+
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(DATA_DIR, 'db.sqlite3'),
+        }
+    }
+
+
+
+
 
 
 # Password validation
@@ -167,7 +186,8 @@ CORS_ALLOW_METHODS = (
         'GET',
     )
 
-CORS_URLS_REGEX = r'^/core/.*$'
+#CORS_URLS_REGEX = r'^/core/.*$'
+CORS_URLS_REGEX = '^.*$'
 
 CORS_ORIGIN_ALLOW_ALL = True
 

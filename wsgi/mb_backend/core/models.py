@@ -1,30 +1,30 @@
 from django.db import models
 from django.utils import timezone
-import uuid
+
 
 # Create your models here.
 class Comunidade(models.Model):
-    nomeComunidade = models.CharField(max_length=50)
+    nome = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.nomeComunidade
+        return self.nome
 
     @staticmethod
     def get_all():
         return Comunidade.objects.all()
 
 class Categoria(models.Model):
-    nomeCategoria = models.CharField(max_length=50)
+    nome = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.nomeCategoria
+        return self.nome
 
     @staticmethod
     def get_all():
         return Categoria.objects.all()
 
-class Elemento(models.Model):
-    comunidadeElemento = models.ForeignKey(Comunidade)
+class Ponto(models.Model):
+    comunidade = models.ForeignKey(Comunidade)
     nome = models.CharField(max_length=100)
     enderecoOficial = models.CharField(max_length=500, blank = True)
     enderecoUsual = models.CharField(max_length=500)
@@ -40,25 +40,30 @@ class Elemento(models.Model):
 
     @staticmethod
     def get_all():
-        return Elemento.objects.all()
+        return Ponto.objects.all()
 
     @staticmethod
-    def get_elemento_em_comunidade(pkComunidade):
-        return Elemento.objects.filter(comunidadeElemento_id=pkComunidade).order_by('nome')
+    def get_ponto_em_comunidade(pkComunidade):
+        return Ponto.objects.filter(comunidade_id=pkComunidade).order_by('nome')
 
     @staticmethod
-    def get_elemento_em_categoria(pkCategoria):
-        return Elemento.objects.filter(listaCategorias__id=pkCategoria).order_by('nome')
+    def get_ponto_em_categoria(pkCategoria):
+        return Ponto.objects.filter(listaCategorias__id=pkCategoria).order_by('nome')
 
     @staticmethod
-    def get_elemento_em_comunidade_em_categoria(pkComunidade, pkCategoria):
-        return Elemento.objects.filter(comunidadeElemento_id = pkComunidade, listaCategorias__id=pkCategoria).order_by('nome')
+    def get_ponto_em_comunidade_em_categoria(pkComunidade, pkCategoria):
+        return Ponto.objects.filter(comunidade_id = pkComunidade, listaCategorias__id=pkCategoria).order_by('nome')
 
 
-class Comentario(models.Model):
-    elementoComentario = models.ForeignKey(Elemento)
-    nomeUsuario = models.ForeignKey('auth.User')
-    textoComentario = models.CharField(max_length=300)
+class ElementoFixo(Ponto):
+    pass
 
-    def __str__(self):
-        return str(self.nomeUsuario)
+
+class PontoReferencia(ElementoFixo):
+    pass
+
+class PontoReferenciaComercial(PontoReferencia):
+    nomeDoProprietario = models.CharField(max_length=80, blank = True)
+
+class PontoReferenciaCultural(PontoReferencia):
+    pass

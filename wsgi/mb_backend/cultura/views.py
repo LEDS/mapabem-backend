@@ -5,34 +5,12 @@ from rest_framework import permissions
 from .permissions import IsOwnerOrReadOnly
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from django.contrib.auth import authenticate
-from .serializers import PontoTuristicoSerializer, ObraSerializer, ArtistaSerializer
-from .models import PontoTuristico, Obra, Artista
+from .serializers import ObraSerializer, ArtistaSerializer
+from .models import Obra, Artista
 from core.views import Permissao
 
 
 # Create your views here.
-class PontoTuristicoList(generics.ListCreateAPIView, Permissao):
-    queryset = PontoTuristico.get_all()
-    serializer_class = PontoTuristicoSerializer
-
-class PontoTuristicoDetail(generics.RetrieveUpdateDestroyAPIView, Permissao):
-    queryset = PontoTuristico.get_all()
-    serializer_class = PontoTuristicoSerializer
-
-class PontoTuristicoEmComunidade(generics.ListAPIView, Permissao):
-
-    serializer_class = PontoTuristicoSerializer
-
-    def get_queryset(self):
-        comunidade = self.kwargs['pk']
-        return PontoTuristico.get_pontoturistico_em_comunidade(comunidade)
-
-class PontoTuristicoEmCategoria(generics.ListAPIView, Permissao):
-    serializer_class = PontoTuristicoSerializer
-
-    def get_queryset(self):
-        categoria = self.kwargs['pk']
-        return PontoTuristico.get_pontoturistico_em_categoria(categoria)
 
 class ObraList(generics.ListCreateAPIView, Permissao):
     queryset = Obra.get_all()
@@ -50,8 +28,7 @@ class ObraEmComunidade(generics.ListAPIView, Permissao):
         return Obra.get_obra_em_comunidade(comunidade)
 
 class ObraEmCategoria(generics.ListAPIView, Permissao):
-    serializer_class = PontoTuristicoSerializer
-
+    serializer_class = ObraSerializer
     def get_queryset(self):
         categoria = self.kwargs['pk']
         return Obra.get_obra_em_categoria(categoria)
