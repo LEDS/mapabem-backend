@@ -44,7 +44,7 @@ SECRET_KEY = SECRETS['secret_key']
 DEBUG = True
 #===========Modificado devido ao OpenShift
 # Quando subir para o OpenShift é necessário descomentar a linha abaixo
-DEBUG = os.environ.get('DEBUG') == 'True'
+#DEBUG = os.environ.get('DEBUG') == 'True'
 
 #=== Modificado devido ao OpenShift
 ALLOWED_HOSTS = ['*']
@@ -108,7 +108,7 @@ WSGI_APPLICATION = 'mb_backend.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
-ON_OPENSHIFT = True
+ON_OPENSHIFT = False
 
 if ON_OPENSHIFT: # production settings
     DATABASES = {

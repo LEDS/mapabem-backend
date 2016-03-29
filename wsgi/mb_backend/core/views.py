@@ -23,7 +23,6 @@ class PontoEmComunidade(generics.ListAPIView, Permissao):
 
     def get_queryset(self):
         comunidade = self.kwargs['pk']
-
         return Ponto.get_ponto_em_comunidade(comunidade)
 
 class CategoriaList(generics.ListCreateAPIView, Permissao):
