@@ -10,10 +10,13 @@ urlpatterns = [
 
 
         url(r'^elemento/(?P<pk>[0-9]+)/$',views.ElementoEspecifico.as_view()),
+        url(r'^elemento/(?P<nome>\w+)/$',views.BuscarPorNome.as_view()),
 
 
         url(r'^comunidades/$',views.ComunidadeList.as_view()),
         url(r'^categorias/$',views.CategoriaList.as_view()),
+
+
 
 
         url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))

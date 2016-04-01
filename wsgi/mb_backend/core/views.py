@@ -63,8 +63,8 @@ class TodasEntidadesEmComunidadeEmCategoria(MultipleModelAPIView, Permissao):
     flat = True
     add_model_type = False
     def get_queryList(self):
-        comunidade = self.kwargs['pk']
-        categoria = self.kwargs['pk']
+        comunidade = self.kwargs['comunidade_pk']
+        categoria = self.kwargs['categoria_pk']
         queryList = [
             (Comercio.get_comercio_em_comunidade_em_categoria(comunidade, categoria),ComercioSerializerBasic),
             (ObraExposta.get_obra_exposta_em_comunidade_em_categoria(comunidade, categoria), ObraExpostaSerializerBasic),
@@ -97,5 +97,19 @@ class TodasEntidades(MultipleModelAPIView, Permissao):
             (ObraExposta.get_all(), ObraExpostaSerializer),
             (Artista.get_all(), ArtistaSerializer),
             (PontoReferenciaCultural.get_all(), PontoReferenciaCulturalSerializer)
+        ]
+        return queryList
+
+
+class BuscarPorNome(MultipleModelAPIView, Permissao):
+    flat = True
+    add_model_type = False
+    def get_queryList(self):
+        nome = self.kwargs['nome']
+        queryList = [
+            (Comercio.get_por_nome(nome),ComercioSerializerBasic),
+            (ObraExposta.get_por_nome(nome), ObraExpostaSerializerBasic),
+            (Artista.get_por_nome(nome), ArtistaSerializerBasic),
+            (PontoReferenciaCultural.get_por_nome(nome), PontoReferenciaCulturalSerializerBasic)
         ]
         return queryList
