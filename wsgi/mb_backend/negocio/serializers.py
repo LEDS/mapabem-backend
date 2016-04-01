@@ -10,3 +10,9 @@ class ComercioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comercio
         fields = ('id', 'comunidade', 'nome', 'nomeDoProprietario', 'telefone','enderecoOficial', 'enderecoUsual', 'latitude', 'longitude', 'descricao', 'listaCategorias', 'imagem')
+
+
+class ComercioSerializerBasic(serializers.ModelSerializer):
+    class Meta:
+        model = Comercio
+        fields = ('id', 'nome', 'descricao', 'imagem')

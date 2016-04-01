@@ -16,6 +16,14 @@ class ObraExposta(PontoReferencia):
         return ObraExposta.objects.all()
 
     @staticmethod
+    def get_por_id(id):
+        return ObraExposta.objects.filter(id=id)
+
+    @staticmethod
+    def get_por_nome(nome):
+        return ObraExposta.objects.filter(nome=nome)
+
+    @staticmethod
     def get_obra_exposta_em_comunidade(pkComunidade):
         return ObraExposta.objects.filter(comunidade_id=pkComunidade).order_by('id')
 
@@ -39,6 +47,14 @@ class Artista(Pessoa):
         return Artista.objects.all()
 
     @staticmethod
+    def get_por_id(id):
+        return Artista.objects.filter(id=id)
+
+    @staticmethod
+    def get_por_nome(nome):
+        return Artista.objects.filter(nome=nome)
+
+    @staticmethod
     def get_artista_em_comunidade(pkComunidade):
         return Artista.objects.filter(comunidade_id=pkComunidade).order_by('nome')
 
@@ -59,6 +75,14 @@ class PontoReferenciaCultural(PontoReferencia):
     @staticmethod
     def get_all():
         return PontoReferenciaCultural.objects.all()
+
+    @staticmethod
+    def get_por_id(id):
+        return PontoReferenciaCultural.objects.filter(id=id)
+
+    @staticmethod
+    def get_por_nome(nome):
+        return PontoReferenciaCultural.objects.filter(nome=nome)
 
     @staticmethod
     def get_ponto_referencia_cultural_em_comunidade(pkComunidade):

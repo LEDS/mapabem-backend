@@ -13,6 +13,15 @@ class Comercio(PontoReferencia):
     def get_all():
         return Comercio.objects.all()
 
+
+    @staticmethod
+    def get_por_id(id):
+        return Comercio.objects.filter(id=id)
+
+    @staticmethod
+    def get_por_nome(nome):
+        return Comercio.objects.filter(nome=nome)
+
     @staticmethod
     def get_comercio_em_comunidade(pkComunidade):
         return Comercio.objects.filter(comunidade_id=pkComunidade).order_by('nome')

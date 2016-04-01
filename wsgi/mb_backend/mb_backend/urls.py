@@ -19,6 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    url(r'^', include(admin.site.urls)),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^core/', include('core.urls')),
     url(r'^cultura/', include('cultura.urls')),

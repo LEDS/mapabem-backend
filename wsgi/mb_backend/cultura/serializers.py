@@ -7,7 +7,12 @@ class ObraExpostaSerializer(serializers.ModelSerializer):
     listaCategorias =CategoriaSerializer(many = True)
     class Meta:
         model = ObraExposta
-        fields = ('id', 'comunidade', 'nome', 'enderecoOficial', 'enderecoUsual', 'latitude', 'longitude', 'descricao', 'listaCategorias')
+        fields = ('id', 'comunidade', 'nome', 'enderecoOficial', 'enderecoUsual', 'latitude', 'longitude', 'descricao', 'listaCategorias', 'imagem')
+
+class ObraExpostaSerializerBasic(serializers.ModelSerializer):
+    class Meta:
+        model = ObraExposta
+        fields = ('id', 'nome', 'descricao', 'imagem')
 
 class ArtistaSerializer(serializers.ModelSerializer):
     comunidade = ComunidadeSerializer()
@@ -15,7 +20,13 @@ class ArtistaSerializer(serializers.ModelSerializer):
     listaObras = ObraExpostaSerializer(many = True)
     class Meta:
         model = Artista
-        fields = ('id','comunidade', 'nome','telefone', 'descricao', 'listaObras', 'listaCategorias')
+        fields = ('id','comunidade', 'nome','telefone', 'descricao', 'listaObras', 'listaCategorias', 'imagem')
+
+
+class ArtistaSerializerBasic(serializers.ModelSerializer):
+    class Meta:
+        model = ObraExposta
+        fields = ('id', 'nome', 'descricao', 'imagem')
 
 
 class PontoReferenciaCulturalSerializer(serializers.ModelSerializer):
@@ -24,3 +35,9 @@ class PontoReferenciaCulturalSerializer(serializers.ModelSerializer):
     class Meta:
         model = PontoReferenciaCultural
         fields = ('id','comunidade', 'nome', 'enderecoOficial', 'enderecoUsual', 'latitude', 'longitude', 'descricao', 'listaCategorias')
+
+
+class PontoReferenciaCulturalSerializerBasic(serializers.ModelSerializer):
+    class Meta:
+        model = ObraExposta
+        fields = ('id', 'nome', 'descricao', 'imagem')
