@@ -1,10 +1,13 @@
 from django.db import models
-from django.utils import timezone
-from core.models import ElementoFixo
+from core.models import PontoReferencia
 
 # Create your models here.
-class Comercio(ElementoFixo):
+class Comercio(PontoReferencia):
+    telefone = models.CharField(max_length = 20, blank = True)
     nomeDoProprietario = models.CharField(max_length=80, blank = True)
+
+    def __str__(self):
+        return self.nome
 
     @staticmethod
     def get_all():
@@ -12,8 +15,12 @@ class Comercio(ElementoFixo):
 
     @staticmethod
     def get_comercio_em_comunidade(pkComunidade):
-        return Comercio.objects.filter(comunidadePonto_id=pkComunidade).order_by('id')
+        return Comercio.objects.filter(comunidade_id=pkComunidade).order_by('nome')
 
     @staticmethod
     def get_comercio_em_categoria(pkCategoria):
-        return Comercio.objects.filter(listaTags__id=pkCategoria).order_by('id')
+        return Comercio.objects.filter(listaCategorias__id=pkCategoria).order_by('nome')
+
+    @staticmethod
+    def get_comercio_em_comunidade_em_categoria(pkComunidade, pkCategoria):
+        return Comercio.objects.filter(comunidade_id = pkComunidade, listaCategorias__id=pkCategoria).order_by('nome')

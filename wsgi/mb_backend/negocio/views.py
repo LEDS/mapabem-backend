@@ -9,6 +9,7 @@ from .serializers import ComercioSerializer
 from .models import Comercio
 from core.views import Permissao
 
+
 # Create your views here.
 
 class ComercioList(generics.ListCreateAPIView, Permissao):
@@ -32,3 +33,11 @@ class ComercioEmCategoria(generics.ListAPIView, Permissao):
     def get_queryset(self):
         categoria = self.kwargs['pk']
         return Comercio.get_comercio_em_categoria(categoria)
+
+class ComercioEmComunidadeEmCategoria(generics.ListAPIView, Permissao):
+    serializer_class = ComercioSerializer
+
+    def get_queryset(self):
+        comunidade = self.kwargs['pk']
+        categoria = self.kwargs['pk']
+        return Comercio.get_comercio_em_comunidade_em_categoria(comunidade, categoria)

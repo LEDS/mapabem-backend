@@ -1,20 +1,26 @@
 from rest_framework import serializers
-from .models import Obra, Artista
-#from core.serializers import ComunidadeSerializer, CategoriaSerializer
+from .models import ObraExposta, Artista, PontoReferenciaCultural
+from core.serializers import ComunidadeSerializer, CategoriaSerializer
 
-class ObraSerializer(serializers.ModelSerializer):
-    # comunidade = ComunidadeSerializer()
-    # listaCategorias =CategoriaSerializer(many = True)
-
+class ObraExpostaSerializer(serializers.ModelSerializer):
+    comunidade = ComunidadeSerializer()
+    listaCategorias =CategoriaSerializer(many = True)
     class Meta:
-        model = Obra
+        model = ObraExposta
         fields = ('id', 'comunidade', 'nome', 'enderecoOficial', 'enderecoUsual', 'latitude', 'longitude', 'descricao', 'listaCategorias')
 
 class ArtistaSerializer(serializers.ModelSerializer):
-    # comunidade = ComunidadeSerializer()
-    # listaCategorias =CategoriaSerializer(many = True)
-    listaObras = ObraSerializer(many = True)
-
+    comunidade = ComunidadeSerializer()
+    listaCategorias =CategoriaSerializer(many = True)
+    listaObras = ObraExpostaSerializer(many = True)
     class Meta:
         model = Artista
-        fields = ('id','comunidade', 'nome', 'enderecoOficial', 'enderecoUsual', 'latitude', 'longitude', 'descricao', 'listaObras', 'listaCategorias')
+        fields = ('id','comunidade', 'nome','telefone', 'descricao', 'listaObras', 'listaCategorias')
+
+
+class PontoReferenciaCulturalSerializer(serializers.ModelSerializer):
+    comunidade = ComunidadeSerializer()
+    listaCategorias =CategoriaSerializer(many = True)
+    class Meta:
+        model = PontoReferenciaCultural
+        fields = ('id','comunidade', 'nome', 'enderecoOficial', 'enderecoUsual', 'latitude', 'longitude', 'descricao', 'listaCategorias')
