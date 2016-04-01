@@ -29,7 +29,7 @@ class ObraExposta(PontoReferencia):
 
     @staticmethod
     def get_obra_exposta_em_categoria(pkCategoria):
-        return ObraExposta.objects.filter(listaTags__id=pkCategoria).order_by('id')
+        return ObraExposta.objects.filter(listaCategorias__id=pkCategoria).order_by('id')
 
 
     @staticmethod
@@ -60,7 +60,7 @@ class Artista(Pessoa):
 
     @staticmethod
     def get_artista_em_categoria(pkCategoria):
-        return Artista.objects.filter(listaTags__id=pkCategoria).order_by('nome')
+        return Artista.objects.filter(listaCategorias__id=pkCategoria).order_by('nome')
 
     @staticmethod
     def get_artista_em_comunidade_em_categoria(pkComunidade, pkCategoria):
@@ -90,7 +90,7 @@ class PontoReferenciaCultural(PontoReferencia):
 
     @staticmethod
     def get_ponto_referencia_cultural_em_categoria(pkCategoria):
-        return PontoReferenciaCultural.objects.filter(listaTags__id=pkCategoria).order_by('nome')
+        return PontoReferenciaCultural.objects.filter(listaCategorias__id=pkCategoria).order_by('nome')
 
     @staticmethod
     def get_ponto_referencia_cultural_em_comunidade_em_categoria(pkComunidade, pkCategoria):

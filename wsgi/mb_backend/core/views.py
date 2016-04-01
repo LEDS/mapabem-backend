@@ -34,7 +34,7 @@ class CategoriaList(generics.ListCreateAPIView, Permissao):
 
 class TodasEntidadesEmComunidade(MultipleModelAPIView, Permissao):
     flat = True
-
+    add_model_type = False
     def get_queryList(self):
         comunidade = self.kwargs['pk']
         queryList = [
@@ -48,7 +48,7 @@ class TodasEntidadesEmComunidade(MultipleModelAPIView, Permissao):
 
 class TodasEntidadesEmCategoria(MultipleModelAPIView, Permissao):
     flat = True
-
+    add_model_type = False
     def get_queryList(self):
         categoria = self.kwargs['pk']
         queryList = [
@@ -61,7 +61,7 @@ class TodasEntidadesEmCategoria(MultipleModelAPIView, Permissao):
 
 class TodasEntidadesEmComunidadeEmCategoria(MultipleModelAPIView, Permissao):
     flat = True
-
+    add_model_type = False
     def get_queryList(self):
         comunidade = self.kwargs['pk']
         categoria = self.kwargs['pk']
@@ -76,6 +76,7 @@ class TodasEntidadesEmComunidadeEmCategoria(MultipleModelAPIView, Permissao):
 
 class ElementoEspecifico(MultipleModelAPIView, Permissao):
     flat = True
+    add_model_type = False
     def get_queryList(self):
         identificador = self.kwargs['pk']
         queryList = [
@@ -89,6 +90,7 @@ class ElementoEspecifico(MultipleModelAPIView, Permissao):
 
 class TodasEntidades(MultipleModelAPIView, Permissao):
     flat = True
+    add_model_type = False
     def get_queryList(self):
         queryList = [
             (Comercio.get_all(),ComercioSerializer),
