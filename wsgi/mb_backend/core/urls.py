@@ -10,7 +10,7 @@ urlpatterns = [
 
 
         url(r'^elemento/(?P<pk>[0-9]+)/$',views.ElementoEspecifico.as_view()),
-        url(r'^elemento/(?P<nome>\w+)/$',views.BuscarPorNome.as_view()),
+        #url(r'^elemento/(?P<nome>\w+)/$',views.BuscarPorNome.as_view()), em implementacao
 
 
         url(r'^comunidades/$',views.ComunidadeList.as_view()),

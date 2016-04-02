@@ -100,16 +100,16 @@ class TodasEntidades(MultipleModelAPIView, Permissao):
         ]
         return queryList
 
-
-class BuscarPorNome(MultipleModelAPIView, Permissao):
-    flat = True
-    add_model_type = False
-    def get_queryList(self):
-        nome = self.kwargs['nome']
-        queryList = [
-            (Comercio.get_por_nome(nome),ComercioSerializerBasic),
-            (ObraExposta.get_por_nome(nome), ObraExpostaSerializerBasic),
-            (Artista.get_por_nome(nome), ArtistaSerializerBasic),
-            (PontoReferenciaCultural.get_por_nome(nome), PontoReferenciaCulturalSerializerBasic)
-        ]
-        return queryList
+# em implementacao
+# class BuscarPorNome(MultipleModelAPIView, Permissao):
+#     flat = True
+#     add_model_type = False
+#     def get_queryList(self):
+#         nome = self.kwargs['nome']
+#         queryList = [
+#             (Comercio.get_por_nome(nome),ComercioSerializerBasic),
+#             (ObraExposta.get_por_nome(nome), ObraExpostaSerializerBasic),
+#             (Artista.get_por_nome(nome), ArtistaSerializerBasic),
+#             (PontoReferenciaCultural.get_por_nome(nome), PontoReferenciaCulturalSerializerBasic)
+#         ]
+#         return queryList

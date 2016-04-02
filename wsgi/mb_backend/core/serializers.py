@@ -18,4 +18,4 @@ class EntidadeComunitariaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = EntidadeComunitaria
-        fields = ('id', 'comunidade', 'nome', 'enderecoOficial', 'enderecoUsual', 'latitude', 'longitude', 'descricao', 'listaCategorias', 'imagem')
+        fields = ('id', 'comunidade', 'nome', 'endereco_oficial', 'endereco_usual', 'latitude', 'longitude', 'descricao', 'lista_categorias', 'imagem')

@@ -5,11 +5,11 @@ from core.serializers import ComunidadeSerializer, CategoriaSerializer
 
 class ComercioSerializer(serializers.ModelSerializer):
     comunidade = ComunidadeSerializer()
-    listaCategorias =CategoriaSerializer(many = True)
+    lista_categorias =CategoriaSerializer(many = True)
 
     class Meta:
         model = Comercio
-        fields = ('id', 'comunidade', 'nome', 'nomeDoProprietario', 'telefone','enderecoOficial', 'enderecoUsual', 'latitude', 'longitude', 'descricao', 'listaCategorias', 'imagem')
+        fields = ('id', 'comunidade', 'nome', 'nome_do_proprietario', 'telefone','endereco_oficial', 'endereco_usual', 'latitude', 'longitude', 'descricao', 'lista_categorias', 'imagem')
 
 
 class ComercioSerializerBasic(serializers.ModelSerializer):
