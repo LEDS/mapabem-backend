@@ -37,7 +37,7 @@ class ObraExposta(PontoReferencia):
         return ObraExposta.objects.filter(comunidade_id = pkComunidade, lista_categorias__id=pkCategoria).order_by('nome')
 
 class Artista(Pessoa):
-    lista_obras = models.ManyToManyField(ObraExposta, blank = True)
+    lista_de_obras = models.ManyToManyField(ObraExposta, blank = True)
 
     def __str__(self):
         return self.nome
