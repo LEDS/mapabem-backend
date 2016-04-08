@@ -34,7 +34,7 @@ class PontoReferenciaCulturalSerializer(serializers.ModelSerializer):
     lista_de_categorias =CategoriaSerializer(many = True)
     class Meta:
         model = PontoReferenciaCultural
-        fields = ('id','comunidade', 'nome', 'endereco_oficial', 'endereco_usual', 'latitude', 'longitude', 'descricao', 'lista_de_categorias')
+        fields = ('id','comunidade', 'nome', 'endereco_oficial', 'endereco_usual', 'latitude', 'longitude', 'descricao', 'lista_de_categorias', 'imagem')
 
 
 class PontoReferenciaCulturalSerializerBasic(serializers.ModelSerializer):

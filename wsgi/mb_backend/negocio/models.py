@@ -28,8 +28,8 @@ class Comercio(PontoReferencia):
 
     @staticmethod
     def get_comercio_em_categoria(pkCategoria):
-        return Comercio.objects.filter(lista_categorias__id=pkCategoria).order_by('nome')
+        return Comercio.objects.filter(lista_de_categorias__id=pkCategoria).order_by('nome')
 
     @staticmethod
     def get_comercio_em_comunidade_em_categoria(pkComunidade, pkCategoria):
-        return Comercio.objects.filter(comunidade_id = pkComunidade, lista_categorias__id=pkCategoria).order_by('nome')
+        return Comercio.objects.filter(comunidade_id = pkComunidade, lista_de_categorias__id=pkCategoria).order_by('nome')
