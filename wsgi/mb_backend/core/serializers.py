@@ -14,8 +14,8 @@ class CategoriaSerializer(serializers.ModelSerializer):
 
 class EntidadeComunitariaSerializer(serializers.ModelSerializer):
     comunidade = ComunidadeSerializer()
-    listaCategorias =CategoriaSerializer(many = True)
+    lista_de_categorias =CategoriaSerializer(many = True)
 
     class Meta:
         model = EntidadeComunitaria
-        fields = ('id', 'comunidade', 'nome', 'endereco_oficial', 'endereco_usual', 'latitude', 'longitude', 'descricao', 'lista_categorias', 'imagem')
+        fields = ('id', 'comunidade', 'nome', 'endereco_oficial', 'endereco_usual', 'latitude', 'longitude', 'descricao', 'lista_de_categorias', 'imagem')

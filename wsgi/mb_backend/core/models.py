@@ -29,7 +29,7 @@ class EntidadeComunitaria(models.Model):
     comunidade = models.ForeignKey(Comunidade)
     nome = models.CharField(max_length=100)
     descricao = models.TextField(blank = True)
-    lista_categorias = models.ManyToManyField(Categoria, blank=True)
+    lista_de_categorias = models.ManyToManyField(Categoria, blank=True)
     imagem = models.ImageField(upload_to=None, blank=True)
 
     class Meta:
