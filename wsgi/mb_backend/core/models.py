@@ -1,5 +1,7 @@
 from django.db import models
+from django_resized import ResizedImageField
 from django.utils import timezone
+
 
 
 # Create your models here.
@@ -30,7 +32,12 @@ class EntidadeComunitaria(models.Model):
     nome = models.CharField(max_length=100)
     descricao = models.TextField(blank = True)
     lista_de_categorias = models.ManyToManyField(Categoria, blank=True)
-    imagem = models.ImageField(upload_to=None, blank=True)
+    imagem = ResizedImageField(size=[1920, 1080], quality=95, upload_to=None, blank=True)
+    # imagem = models.ImageField(upload_to=None, blank=True)
+    # imagem = StdImageField(upload_to=None, blank=True, variations={
+    #     'large': (1280, 720),
+    #     'medium': (300, 200),
+    # })
 
     class Meta:
         unique_together = ["comunidade", "nome"]
