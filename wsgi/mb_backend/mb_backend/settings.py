@@ -195,5 +195,5 @@ CORS_ORIGIN_ALLOW_ALL = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(WSGI_DIR, 'static')
 
-MEDIA_URL= '/static/media/'
-MEDIA_ROOT = os.path.join(WSGI_DIR,'static/media')
+MEDIA_URL= '/media/'
+MEDIA_ROOT = os.path.join(WSGI_DIR,'media')
