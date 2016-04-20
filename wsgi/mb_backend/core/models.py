@@ -15,7 +15,7 @@ class Comunidade(models.Model):
 
     @staticmethod
     def get_all():
-        return Comunidade.objects.all()
+        return Comunidade.objects.all().order_by('nome')
 
 class Categoria(models.Model):
     nome = models.CharField(max_length=50, unique=True)
@@ -25,7 +25,7 @@ class Categoria(models.Model):
 
     @staticmethod
     def get_all():
-        return Categoria.objects.all()
+        return Categoria.objects.all().order_by('nome')
 
 class EntidadeComunitaria(models.Model):
     comunidade = models.ForeignKey(Comunidade)
