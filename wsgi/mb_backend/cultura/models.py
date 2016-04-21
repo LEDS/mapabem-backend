@@ -25,11 +25,11 @@ class ObraExposta(PontoReferencia):
 
     @staticmethod
     def get_obra_exposta_em_comunidade(pkComunidade):
-        return ObraExposta.objects.filter(comunidade_id=pkComunidade).order_by('id')
+        return ObraExposta.objects.filter(comunidade_id=pkComunidade).order_by('nome')
 
     @staticmethod
     def get_obra_exposta_em_categoria(pkCategoria):
-        return ObraExposta.objects.filter(lista_de_categorias__id=pkCategoria).order_by('id')
+        return ObraExposta.objects.filter(lista_de_categorias__id=pkCategoria).order_by('nome')
 
 
     @staticmethod
