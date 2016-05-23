@@ -11,33 +11,33 @@ from core.views import Permissao
 
 
 # Create your views here.
-
-class ComercioList(generics.ListCreateAPIView, Permissao):
-    queryset = Comercio.get_all()
-    serializer_class = ComercioSerializerBasic
-
-class ComercioDetail(generics.RetrieveUpdateDestroyAPIView, Permissao):
-    queryset = Comercio.get_all()
-    serializer_class = ComercioSerializer
-
-class ComercioEmComunidade(generics.ListAPIView, Permissao):
-    serializer_class = ComercioSerializerBasic
-
-    def get_queryset(self):
-        comunidade = self.kwargs['pk']
-        return Comercio.get_comercio_em_comunidade(comunidade)
-
-class ComercioEmCategoria(generics.ListAPIView, Permissao):
-    serializer_class = ComercioSerializerBasic
-
-    def get_queryset(self):
-        categoria = self.kwargs['pk']
-        return Comercio.get_comercio_em_categoria(categoria)
-
-class ComercioEmComunidadeEmCategoria(generics.ListAPIView, Permissao):
-    serializer_class = ComercioSerializerBasic
-
-    def get_queryset(self):
-        comunidade = self.kwargs['pk']
-        categoria = self.kwargs['pk']
-        return Comercio.get_comercio_em_comunidade_em_categoria(comunidade, categoria)
+#
+# class ComercioList(generics.ListCreateAPIView, Permissao):
+#     queryset = Comercio.get_all()
+#     serializer_class = ComercioSerializerBasic
+#
+# class ComercioDetail(generics.RetrieveUpdateDestroyAPIView, Permissao):
+#     queryset = Comercio.get_all()
+#     serializer_class = ComercioSerializer
+#
+# class ComercioEmBairro(generics.ListAPIView, Permissao):
+#     serializer_class = ComercioSerializerBasic
+#
+#     def get_queryset(self):
+#         bairro = self.kwargs['pk']
+#         return Comercio.get_comercio_em_bairro(bairro)
+#
+# class ComercioEmCategoria(generics.ListAPIView, Permissao):
+#     serializer_class = ComercioSerializerBasic
+#
+#     def get_queryset(self):
+#         categoria = self.kwargs['pk']
+#         return Comercio.get_comercio_em_categoria(categoria)
+#
+# class ComercioEmBairroEmCategoria(generics.ListAPIView, Permissao):
+#     serializer_class = ComercioSerializerBasic
+#
+#     def get_queryset(self):
+#         bairro = self.kwargs['pk']
+#         categoria = self.kwargs['pk']
+#         return Comercio.get_comercio_em_bairro_em_categoria(bairro, categoria)

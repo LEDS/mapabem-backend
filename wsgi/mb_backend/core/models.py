@@ -1,11 +1,15 @@
 from django.db import models
-from django_resized import ResizedImageField
+from stdimage.models import StdImageField
 from django.utils import timezone
+
+# importacoes necessarias para a renomeacao das imagens
+import os
+from uuid import uuid4
 
 
 
 # Create your models here.
-class Comunidade(models.Model):
+class Bairro(models.Model):
     nome = models.CharField(max_length=50, unique=True)
     latitude = models.FloatField(blank = True, null = True)
     longitude = models.FloatField(blank = True, null=True)
@@ -15,7 +19,7 @@ class Comunidade(models.Model):
 
     @staticmethod
     def get_all():
-        return Comunidade.objects.all().order_by('nome')
+        return Bairro.objects.all().order_by('nome')
 
 class Categoria(models.Model):
     nome = models.CharField(max_length=50, unique=True)
@@ -28,19 +32,34 @@ class Categoria(models.Model):
         return Categoria.objects.all().order_by('nome')
 
 class EntidadeComunitaria(models.Model):
-    comunidade = models.ForeignKey(Comunidade)
+    # para se evitar erro ao inserir imagens com acentuacao foi utilizada esse metodo
+    # o mesmo renomeia a imagem de acordo com uma uuid ou de acordo com a pk do objeto
+    def path_and_rename(path):
+        def wrapper(instance, filename):
+            ext = filename.split('.')[-1]
+            # get filename
+            if instance.pk:
+                filename = '{}.{}'.format(instance.pk, ext)
+            else:
+                # set filename as random string
+                filename = '{}.{}'.format(uuid4().hex, ext)
+            # return the whole path to the file
+            return os.path.join(path, filename)
+        return wrapper
+
+
+    bairro = models.ForeignKey(Bairro)
     nome = models.CharField(max_length=100)
     descricao = models.TextField(blank = True)
     lista_de_categorias = models.ManyToManyField(Categoria, blank=True)
-    imagem = ResizedImageField(size=[1920, 1080], quality=95, upload_to=None, blank=True)
-    # imagem = models.ImageField(upload_to=None, blank=True)
-    # imagem = StdImageField(upload_to=None, blank=True, variations={
-    #     'large': (1280, 720),
-    #     'medium': (300, 200),
-    # })
+    imagem = StdImageField(upload_to=path_and_rename('None/'),
+        variations={
+            'large': (1280, 720),
+            'medium': (300, 200),
+    })
 
     class Meta:
-        unique_together = ["comunidade", "nome"]
+        unique_together = ["bairro", "nome"]
 
 
 

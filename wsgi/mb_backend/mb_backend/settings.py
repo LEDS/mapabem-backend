@@ -66,9 +66,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Terceiros
     'rest_framework',
     'drf_multiple_model',
     'corsheaders',
+    'stdimage',
+
+    # Local
     'core',
     'cultura',
     'negocio',

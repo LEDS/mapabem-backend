@@ -7,11 +7,11 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from django.contrib.auth import authenticate
 from drf_multiple_model.views import MultipleModelAPIView
 
-from .serializers import ComunidadeSerializer, CategoriaSerializer
+from .serializers import BairroSerializer, CategoriaSerializer
 from negocio.serializers import ComercioSerializer, ComercioSerializerBasic
 from cultura.serializers import ObraExpostaSerializer, ArtistaSerializer, PontoReferenciaCulturalSerializer, ObraExpostaSerializerBasic, ArtistaSerializerBasic, PontoReferenciaCulturalSerializerBasic
 
-from .models import Comunidade, Categoria
+from .models import Bairro, Categoria
 from cultura.models import ObraExposta, Artista, PontoReferenciaCultural
 from negocio.models import Comercio
 
@@ -23,25 +23,27 @@ class Permissao():
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 
-class ComunidadeList(generics.ListCreateAPIView, Permissao):
-    queryset = Comunidade.get_all()
-    serializer_class = ComunidadeSerializer
+class BairroList(generics.ListCreateAPIView, Permissao):
+    queryset = Bairro.get_all()
+    serializer_class = BairroSerializer
 
 
 class CategoriaList(generics.ListCreateAPIView, Permissao):
     queryset = Categoria.get_all()
     serializer_class = CategoriaSerializer
 
-class TodasEntidadesEmComunidade(MultipleModelAPIView, Permissao):
+class TodasEntidadesEmBairro(MultipleModelAPIView, Permissao):
     flat = True
     add_model_type = False
+    # normalmente e utilizado o metodo query_set porem para que fossem feitas buscas em varios objetos e como resultado fosse gerada
+    # apenas uma lista foi utilizada o APP externo "drf_multiple_model"
     def get_queryList(self):
-        comunidade = self.kwargs['pk']
+        bairro = self.kwargs['pk']
         queryList = [
-            (Comercio.get_comercio_em_comunidade(comunidade),ComercioSerializerBasic),
-            (ObraExposta.get_obra_exposta_em_comunidade(comunidade), ObraExpostaSerializerBasic),
-            (Artista.get_artista_em_comunidade(comunidade), ArtistaSerializerBasic),
-            (PontoReferenciaCultural.get_ponto_referencia_cultural_em_comunidade(comunidade), PontoReferenciaCulturalSerializerBasic)
+            (Comercio.get_comercio_em_bairro(bairro),ComercioSerializerBasic),
+            (ObraExposta.get_obra_exposta_em_bairro(bairro), ObraExpostaSerializerBasic),
+            (Artista.get_artista_em_bairro(bairro), ArtistaSerializerBasic),
+            (PontoReferenciaCultural.get_ponto_referencia_cultural_em_bairro(bairro), PontoReferenciaCulturalSerializerBasic)
         ]
         return queryList
 
@@ -59,17 +61,17 @@ class TodasEntidadesEmCategoria(MultipleModelAPIView, Permissao):
         ]
         return queryList
 
-class TodasEntidadesEmComunidadeEmCategoria(MultipleModelAPIView, Permissao):
+class TodasEntidadesEmBairroEmCategoria(MultipleModelAPIView, Permissao):
     flat = True
     add_model_type = False
     def get_queryList(self):
-        comunidade = self.kwargs['comunidade_pk']
+        bairro = self.kwargs['bairro_pk']
         categoria = self.kwargs['categoria_pk']
         queryList = [
-            (Comercio.get_comercio_em_comunidade_em_categoria(comunidade, categoria),ComercioSerializerBasic),
-            (ObraExposta.get_obra_exposta_em_comunidade_em_categoria(comunidade, categoria), ObraExpostaSerializerBasic),
-            (Artista.get_artista_em_comunidade_em_categoria(comunidade, categoria), ArtistaSerializerBasic),
-            (PontoReferenciaCultural.get_ponto_referencia_cultural_em_comunidade_em_categoria(comunidade, categoria), PontoReferenciaCulturalSerializerBasic)
+            (Comercio.get_comercio_em_bairro_em_categoria(bairro, categoria),ComercioSerializerBasic),
+            (ObraExposta.get_obra_exposta_em_bairro_em_categoria(bairro, categoria), ObraExpostaSerializerBasic),
+            (Artista.get_artista_em_bairro_em_categoria(bairro, categoria), ArtistaSerializerBasic),
+            (PontoReferenciaCultural.get_ponto_referencia_cultural_em_bairro_em_categoria(bairro, categoria), PontoReferenciaCulturalSerializerBasic)
         ]
         return queryList
 
