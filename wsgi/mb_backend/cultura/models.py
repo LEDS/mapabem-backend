@@ -36,6 +36,10 @@ class ObraExposta(PontoReferencia):
     def get_obra_exposta_em_bairro_em_categoria(pkBairro, pkCategoria):
         return ObraExposta.objects.filter(bairro_id = pkBairro, lista_de_categorias__id=pkCategoria).order_by('nome')
 
+    class Meta:
+        verbose_name = "Obra"
+        verbose_name_plural = "Obras"
+
 class Artista(Pessoa):
     lista_de_obras = models.ManyToManyField(ObraExposta, blank = True)
 
@@ -66,6 +70,10 @@ class Artista(Pessoa):
     def get_artista_em_bairro_em_categoria(pkBairro, pkCategoria):
         return Artista.objects.filter(bairro_id = pkBairro, lista_de_categorias__id=pkCategoria).order_by('nome')
 
+    class Meta:
+        verbose_name = "Artista"
+        verbose_name_plural = "Artistas"
+
 
 class PontoReferenciaCultural(PontoReferencia):
 
@@ -95,3 +103,7 @@ class PontoReferenciaCultural(PontoReferencia):
     @staticmethod
     def get_ponto_referencia_cultural_em_bairro_em_categoria(pkBairro, pkCategoria):
         return PontoReferenciaCultural.objects.filter(bairro_id = pkBairro, lista_de_categorias__id=pkCategoria).order_by('nome')
+
+    class Meta:
+        verbose_name = "Ponto de Referencia"
+        verbose_name_plural = "Pontos de Referencia"

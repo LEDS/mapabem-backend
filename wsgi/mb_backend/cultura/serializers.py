@@ -51,9 +51,10 @@ class ObraExpostaSerializer(serializers.ModelSerializer):
     bairro = BairroSerializer()
     lista_de_categorias =CategoriaSerializer(many = True)
     imagem = StdImageField()
+
     class Meta:
         model = ObraExposta
-        fields = ('id', 'bairro', 'nome', 'endereco_oficial', 'endereco_usual', 'latitude', 'longitude', 'descricao', 'lista_de_categorias', 'imagem')
+        fields = ('id', 'bairro', 'nome', 'endereco_oficial', 'endereco_usual', 'latitude', 'longitude', 'descricao', 'lista_de_categorias', 'imagem', 'link_do_video')
 
 class ObraExpostaSerializerBasic(serializers.ModelSerializer):
     imagem = StdImageField()
@@ -66,9 +67,10 @@ class ArtistaSerializer(serializers.ModelSerializer):
     lista_de_categorias =CategoriaSerializer(many = True)
     lista_de_obras = ObraExpostaSerializer(many = True)
     imagem = StdImageField()
+
     class Meta:
         model = Artista
-        fields = ('id','bairro', 'nome','telefone', 'descricao', 'lista_de_obras', 'lista_de_categorias', 'imagem')
+        fields = ('id','bairro', 'nome','telefone', 'descricao', 'lista_de_obras', 'lista_de_categorias', 'imagem', 'link_do_video')
 
 
 class ArtistaSerializerBasic(serializers.ModelSerializer):
@@ -82,9 +84,10 @@ class PontoReferenciaCulturalSerializer(serializers.ModelSerializer):
     bairro = BairroSerializer()
     lista_de_categorias =CategoriaSerializer(many = True)
     imagem = StdImageField()
+
     class Meta:
         model = PontoReferenciaCultural
-        fields = ('id','bairro', 'nome', 'endereco_oficial', 'endereco_usual', 'latitude', 'longitude', 'descricao', 'lista_de_categorias', 'imagem')
+        fields = ('id','bairro', 'nome', 'endereco_oficial', 'endereco_usual', 'latitude', 'longitude', 'descricao', 'lista_de_categorias', 'imagem', 'link_do_video')
 
 
 class PontoReferenciaCulturalSerializerBasic(serializers.ModelSerializer):

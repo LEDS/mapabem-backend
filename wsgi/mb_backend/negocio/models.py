@@ -33,3 +33,7 @@ class Comercio(PontoReferencia):
     @staticmethod
     def get_comercio_em_bairro_em_categoria(pkBairro, pkCategoria):
         return Comercio.objects.filter(bairro_id = pkBairro, lista_de_categorias__id=pkCategoria).order_by('nome')
+
+    class Meta:
+        verbose_name = "Comercio"
+        verbose_name_plural = "Comercios"
