@@ -1,7 +1,7 @@
 language: python
 python:
-  - "3.4"
-  
+  - "3.3"
+
 before_install:
   - wget http://repo1.maven.org/maven2/org/codehaus/sonar/runner/sonar-runner-dist/2.4/sonar-runner-dist-2.4.zip
   - unzip sonar-runner-dist-2.4.zip
@@ -10,15 +10,12 @@ branches:
   only:
     - master
     - desenvolvimento
-
 install:
   - pip install -r requirements.txt
-  
-script: 
+script:
+  - python wsgi/mb_backend/manage.py test
   - nosetests
 
 after_script:
  - ./sonar-runner-2.4/bin/sonar-runner
- 
-notifications:
-  slack: leds:yDK4DPqIeIJJjOm7UjJTiVXh
+
