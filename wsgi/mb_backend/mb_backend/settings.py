@@ -66,12 +66,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Terceiros
     'rest_framework',
     'drf_multiple_model',
     'corsheaders',
-    'core',
-    'cultura',
-    'negocio',
+    'stdimage',
+
+    # Local
+    'core.apps.CoreConfig',
+    'cultura.apps.CulturaConfig',
+    'negocio.apps.NegocioConfig',
+    # 'core',
+    # 'cultura',
+    # 'negocio',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -109,17 +117,28 @@ WSGI_APPLICATION = 'mb_backend.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
-ON_OPENSHIFT = False
+ON_OPENSHIFT = True
 
+# if ON_OPENSHIFT: # production settings
+#     DATABASES = {
+#          'default': { # you can change the backend to any django supported
+#             'ENGINE':   'django.db.backends.postgresql_psycopg2',
+#             'NAME':     os.environ['OPENSHIFT_APP_NAME'],
+#             'USER':     os.environ['OPENSHIFT_POSTGRESQL_DB_USERNAME'],
+#             'PASSWORD': os.environ['OPENSHIFT_POSTGRESQL_DB_PASSWORD'],
+#             'HOST':     os.environ['OPENSHIFT_POSTGRESQL_DB_HOST'],
+#             'PORT':     os.environ['OPENSHIFT_POSTGRESQL_DB_PORT'],
+#          }
+#     }
 if ON_OPENSHIFT: # production settings
     DATABASES = {
-         'default': { # you can change the backend to any django supported
+         'default': { 
             'ENGINE':   'django.db.backends.postgresql_psycopg2',
-            'NAME':     os.environ['OPENSHIFT_APP_NAME'],
-            'USER':     os.environ['OPENSHIFT_POSTGRESQL_DB_USERNAME'],
-            'PASSWORD': os.environ['OPENSHIFT_POSTGRESQL_DB_PASSWORD'],
-            'HOST':     os.environ['OPENSHIFT_POSTGRESQL_DB_HOST'],
-            'PORT':     os.environ['OPENSHIFT_POSTGRESQL_DB_PORT'],
+            'NAME':     'backend',
+            'USER':     'postgres',
+            'PASSWORD': 'edvaldo',
+            'HOST':     'localhost',
+            'PORT':     '5433',
          }
     }
 

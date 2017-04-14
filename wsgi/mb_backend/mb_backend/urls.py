@@ -24,4 +24,6 @@ urlpatterns = [
     url(r'^core/', include('core.urls')),
     url(r'^cultura/', include('cultura.urls')),
     url(r'^negocio/', include('negocio.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

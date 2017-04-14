@@ -1,11 +1,16 @@
 from django.db import models
-from django_resized import ResizedImageField
+from stdimage.models import StdImageField
 from django.utils import timezone
+
+# importacoes necessarias para a renomeacao das imagens
+from django.utils.deconstruct import deconstructible
+import os
+from uuid import uuid4
 
 
 
 # Create your models here.
-class Comunidade(models.Model):
+class Bairro(models.Model):
     nome = models.CharField(max_length=50, unique=True)
     latitude = models.FloatField(blank = True, null = True)
     longitude = models.FloatField(blank = True, null=True)
@@ -15,7 +20,11 @@ class Comunidade(models.Model):
 
     @staticmethod
     def get_all():
-        return Comunidade.objects.all().order_by('nome')
+        return Bairro.objects.all().order_by('nome')
+
+    class Meta:
+        verbose_name = "Bairro"
+        verbose_name_plural = "Bairros"
 
 class Categoria(models.Model):
     nome = models.CharField(max_length=50, unique=True)
@@ -27,20 +36,40 @@ class Categoria(models.Model):
     def get_all():
         return Categoria.objects.all().order_by('nome')
 
+    class Meta:
+        verbose_name = "Categoria"
+        verbose_name_plural = "Categorias"
+
+@deconstructible
+class PathAndRename(object):
+
+    def __init__(self, sub_path):
+        self.path = sub_path
+
+    def __call__(self, instance, filename):
+        ext = filename.split('.')[-1]
+        # set filename as random string
+        filename = '{}.{}'.format(uuid4().hex, ext)
+        # return the whole path to the file
+        return os.path.join(self.path, filename)
+
 class EntidadeComunitaria(models.Model):
-    comunidade = models.ForeignKey(Comunidade)
+    bairro = models.ForeignKey(Bairro)
     nome = models.CharField(max_length=100)
     descricao = models.TextField(blank = True)
     lista_de_categorias = models.ManyToManyField(Categoria, blank=True)
-    imagem = ResizedImageField(size=[1920, 1080], quality=95, upload_to=None, blank=True)
-    # imagem = models.ImageField(upload_to=None, blank=True)
-    # imagem = StdImageField(upload_to=None, blank=True, variations={
-    #     'large': (1280, 720),
-    #     'medium': (300, 200),
-    # })
+    path_and_rename = PathAndRename("None/")
+    imagem = StdImageField(upload_to=path_and_rename,
+        variations={
+            'large': (1280, 720),
+            'medium': (300, 200),
+    })
+    link_do_video = models.URLField(max_length=100, blank=True)
 
     class Meta:
-        unique_together = ["comunidade", "nome"]
+        unique_together = ["bairro", "nome"]
+
+
 
 
 
